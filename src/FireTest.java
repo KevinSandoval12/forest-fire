@@ -22,4 +22,22 @@ public class FireTest {
     }
 
     // Add more tests!
+    @Test
+    public void testTimeToBurnPillarExample() {
+        char[][] forest = {
+          {'t','t','t'},
+          {'t','.','t'},
+          {'t','.','t'},
+          {'t','.','t'},
+          {'t','t','t'},
+        };
+
+        int matchR = 4;
+        int matchC = 1;
+
+        int expected = 6;
+        int actual = Fire.timeToBurn(forest, matchR, matchC);
+
+        assertEquals(expected, actual);
+    }
 }
