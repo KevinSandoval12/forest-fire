@@ -48,31 +48,35 @@ public class Fire {
             return 0;
         }
 
-        int time = 0;
+        int time = -1;
 
         // Implement this AND add more tests!!!
         HashSet<Location> seen = new HashSet<>();
         Queue<Location> queue = new LinkedList<>();
 
         queue.add(new Location(matchR, matchC));
-
+        
         while(!queue.isEmpty()){
-            
+                int size = queue.size();
+                time++;
+                
+                for (int i = 0; i < size; i++) { 
+                Location current = queue.poll();
+                if(seen.contains(current)){
+                    continue;
+                }
 
-            Location current = queue.poll();
-            if(seen.contains(current)){
-                continue;
-            }
-
-            seen.add(current);
-            time++;
+                seen.add(current);
 
 
-            int currentR = current.row();
-            int currentC = current.col();
+                int currentR = current.row();
+                int currentC = current.col();
 
-            for(Location move : possibleMoves(forest, currentR, currentC)){
-                queue.add(new Location(move.row(), move.col()));
+                for(Location move : possibleMoves(forest, currentR, currentC)){
+                    if (!seen.contains(move)) {
+                        queue.add(new Location(move.row(), move.col()));
+                    }
+                }
             }
         }
 
