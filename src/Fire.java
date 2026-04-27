@@ -44,18 +44,45 @@ public class Fire {
     public static int timeToBurn(char[][] forest, int matchR, int matchC) {
         // HINT: when adding to your BFS queue, you can include more information than
         // just a location. What other information might be useful?
+        if(forest == null){
+            return 0;
+        }
+
+        int time = 0;
 
         // Implement this AND add more tests!!!
-        HashSet<Character> seen = new HashSet<>();
+        HashSet<Location> seen = new HashSet<>();
         Queue<Location> queue = new LinkedList<>();
 
-        return -1;
+        queue.add(new Location(matchR, matchC));
+
+        while(!queue.isEmpty()){
+            
+
+            Location current = queue.poll();
+            if(seen.contains(current)){
+                continue;
+            }
+
+            seen.add(current);
+            time++;
+
+
+            int currentR = current.row();
+            int currentC = current.col();
+
+            for(Location move : possibleMoves(forest, currentR, currentC)){
+                queue.add(new Location(move.row(), move.col()));
+            }
+        }
+
+        return time;
     }
 
     public static List<Location> possibleMoves(char[][] forest, int matchR, int matchC) {
         List<Location> list = new ArrayList<>();
 
-        int[][] moves = new int[][] {
+        int[][] moves = new int[][]{
             {0, -1}, // LEFT
             {0, 1} , // RIGHT
             {1, 0}, // DOWN
@@ -63,12 +90,12 @@ public class Fire {
         };
 
         for (int[] move : moves) {
+            int newR = matchR + move[0];
             int newC = matchC + move[1];
-            int newR = matchR+ move[0];
-            if (newC < 0 && newC < forest[newC].length 
-                && newR < 0 && newR < forest[newR].length 
-                && forest[newC][newR] == 't') {
-                list.add(new Location(newC, newR));
+            if (newC >= 0 && newC < forest[0].length 
+                && newR >= 0 && newR < forest.length 
+                && forest[newR][newC] == 't') {
+                list.add(new Location(newR, newC));
             } 
         }
 
