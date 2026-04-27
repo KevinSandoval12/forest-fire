@@ -40,4 +40,23 @@ public class FireTest {
 
         assertEquals(expected, actual);
     }
+
+        @Test
+    public void testTimeToBurnDExample() {
+        char[][] forest = {
+          {'t','.','.'},
+          {'.','t','.'},
+          {'.','.','t'},
+          {'.','t','.'},
+          {'t','.','.'},
+        };
+
+        int matchR = 1;
+        int matchC = 1;
+
+        int expected = 0;
+        int actual = Fire.timeToBurn(forest, matchR, matchC);
+
+        assertEquals(expected, actual);
+    }
 }
